@@ -12,8 +12,4 @@ $mydate = Get-Date -Format "dd-MM-yyyyHH_mm_ss"
 $errorLog = "c:\dev\test\logs\$mydate.txt" 
 
 #purge files and write to log
-Remove-Item -Path $path -Recurse -Verbose *> $errorLog
-
-#Delete empty logs
-$logs = Get-ChildItem -Path "C:\dev\test\logs"
-$logs | %{if($_.Length -eq 0){Remove-Item -path $_.FullName}}
+if($count -ne 0){Remove-Item -Path $path -Recurse -Verbose *> $errorLog}

@@ -10,3 +10,6 @@ Reason or need: Moving over to new finance software and need to export finance d
 
 ## FTPSendFiles.ps1
 Reason: Workgroups have reports and other types of files that must bw sent to vendors via FTP. Created a script to automate sending these files as determined. The workgroup will drop the files to a folder, the script will scan the folder for files. When found, WinSCP is invoked and will send the files. After they are sent, the files are renamed with the prefix of "processed_[date]" appended to the filename. Next time script runs it will not resend the processed files.
+
+## RunSSISPackage.ps1
+Reason: Workgroup wanted an SSRS report to run and send a notification when the report was not null. SSRS does not have a way to do this internally. I placed the query into an SSIS package that outputs the returned data into a CSV. This script runs the SSIS package and checks the CSV for data if not null, it sends an email to the manager with the CSV attachment. NOTE: The query in the report I wrote this for only returns data if it is present at a given timeframe. Normally, data clears within 30 mins so the report will not send all that often.

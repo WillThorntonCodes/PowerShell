@@ -3,11 +3,11 @@
 #Incoming files go to the staging folder 
 #Work is done in the temp folder
 
-$stagingFolder = "C:\dev\Staging"
+$stagingFolder = "C:\dev\Staging\"
 $tempFolder = "C:\dev\Temp\"
 $inboxFolder = "C:\dev\Inbox\"
 $archiveFolder = "C:\dev\Archive"
-$limit = 999 #Use 1 less from desired limit to account for the inserted header
+$limit = 9999 #Use 1 less from desired limit to account for the inserted header
 
 #read csv files from source and determine if they are more than row limit
 $files = Get-ChildItem -Path $stagingFolder
@@ -23,6 +23,9 @@ $files | ForEach-Object{
       $i++
       $_ | Out-File $tempFolder$i$name.txt      
     }
+  }
+  else{
+    Move-Item -Path $stagingFolder* -Destination $inboxFolder
   }
 }
 
@@ -47,6 +50,3 @@ $textFiles | ForEach-Object{
 #empty temp and staging folder
 Remove-Item -Path $tempFolder*
 Remove-Item -Path $stagingFolder*
-
-#move inbox files to archive folder
-Move-Item -Path $inboxFolder* -Destination $archiveFolder

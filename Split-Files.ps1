@@ -21,7 +21,7 @@ $files | ForEach-Object{
     Get-Content $_.FullName -ReadCount $limit | 
     ForEach-Object{
       $i++
-      $_ | Out-File $tempFolder$i$name.txt      
+      $_ | Out-File $tempFolder$i$name.txt #saves file name like so "1filename.txt, 2filename.txt, ..."      
     }
   }
   else{
@@ -34,12 +34,12 @@ $textFiles = Get-ChildItem -Path $tempFolder
 $textFiles | ForEach-Object{
 
     #if file is the first in the series, get header from first row
-    if($_.FullName.Contains("[header column value]")){
+    if($_.FullName.Contains("1filename")){  #checks if first file in series
         $header = Get-Content -Path $_.FullName -first 1 #get header row
     }
 
     #if file does not contain a header, inserts header
-    if(!((Get-Content -path $_.fullname -first 1).Contains("[header column value]"))){
+    if(!((Get-Content -path $_.fullname -first 1).Contains([header desc]))){ #unique string found in header. If missing then add header
          $header+"`r`n"+(Get-Content $_.FullName -Raw) | #-Raw flag maintains formating!!
          out-file -FilePath $tempFolder$($_.BaseName).txt
     }
@@ -50,3 +50,6 @@ $textFiles | ForEach-Object{
 #empty temp and staging folder
 Remove-Item -Path $tempFolder*
 Remove-Item -Path $stagingFolder*
+
+#move processed files to Archive folder
+Move-Item -Path $inboxFolder* -Destination $archiveFolder

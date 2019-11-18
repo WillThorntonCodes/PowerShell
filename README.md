@@ -13,3 +13,6 @@ Reason: Workgroups have reports and other types of files that must bw sent to ve
 
 ## RunSSISPackage.ps1
 Reason: Workgroup wanted an SSRS report to run and send a notification when the report was not null. SSRS does not have a way to do this internally. I placed the query into an SSIS package that outputs the returned data into a CSV. This script runs the SSIS package and checks the CSV for data if not null, it sends an email to the manager with the CSV attachment. NOTE: The query in the report I wrote this for only returns data if it is present at a given timeframe. Normally, data clears within 30 mins so the report will not send all that often.
+
+## Split-Files.ps1
+Reason: System has a limit on how many rows each file must have prior to transmission. I created this script to scan all files in the Staging folder and check how many lines are in each file. If it is below the limit it will go to the Inbox for transmission. If it is passed the limit it will split the file into smaller files then moved to the Inbox.

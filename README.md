@@ -1,6 +1,6 @@
 # PowerShell
 PS scripts for automation tasks
-Scripts I have created over the past year(2018-2019) for various projects.
+Scripts I have created to help accomplish routine tasks.
 
 ## PurgeFolder.ps1
 Reason or need: An application print server creates PDF files of each print job and stores them on the HDD. The files are not deleted automatically after their usefullness. I was asked to create a automated task to delete the contents of the folder every three days. This script will check the folder for files and delete them accordingly. Verbose output is sent to a log file. Created a batch file and set it up to exceute this .PS1 in Task Scheduler to run every third day. 
@@ -16,3 +16,6 @@ Reason: Workgroup wanted an SSRS report to run and send a notification when the 
 
 ## Split-Files.ps1
 Reason: System has a limit on how many rows each file must have prior to transmission. I created this script to scan all files in the Staging folder and check how many lines are in each file. If it is below the limit it will go to the Inbox for transmission. If it is passed the limit it will split the file into smaller files then moved to the Inbox.
+
+## Check-Hostnames.ps1
+Reason: I have a list of hostnames and IP addresses and needed to check of each one was pingable. Used this script to show if each one is reachable via Test-Connection cmdlet.
